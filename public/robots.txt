@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://happ-lab.top/sitemap.xml
