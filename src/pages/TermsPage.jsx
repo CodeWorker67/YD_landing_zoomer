@@ -1,9 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '@components/navigation/Header';
 import Footer from '@components/navigation/Footer';
-import { SUPPORT_URL } from '@utils/constants';
+import { useTrackedLinks } from '@/hooks/useTrackedLinks';
 
 export default function TermsPage() {
+  const { supportUrl } = useTrackedLinks();
+
   return (
     <div style={{ width: '100%', fontFamily: 'Manrope,-apple-system,sans-serif', color: '#0F0F0F', background: '#fff' }}>
       <Helmet>
@@ -50,7 +52,7 @@ export default function TermsPage() {
         <h2>6. Контакты</h2>
         <p>
           Поддержка:{' '}
-          <a href={SUPPORT_URL} target="_blank" rel="noopener noreferrer">
+          <a href={supportUrl} target="_blank" rel="noopener noreferrer">
             Telegram
           </a>
         </p>

@@ -1,7 +1,9 @@
-import { AUTH_URL } from '@utils/constants';
+import { useTrackedLinks } from '@/hooks/useTrackedLinks';
 import HeroIllustration from './HeroIllustration';
 
 export default function HeroSection() {
+  const { authUrl } = useTrackedLinks();
+
   return (
     <section
       id="top"
@@ -95,16 +97,16 @@ export default function HeroSection() {
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-            <a className="btn-primary" href={AUTH_URL}>
+            <a className="btn-primary" href={authUrl}>
               Получить ключ
             </a>
-            <a className="btn-outline" href={AUTH_URL}>
+            <a className="btn-outline" href={authUrl}>
               Попробовать
             </a>
           </div>
           <p style={{ marginTop: 22, fontSize: 14, color: '#8A8A99' }}>
             1 день бесплатно · аккаунт создаётся автоматически ·{' '}
-            <a href={AUTH_URL} style={{ fontWeight: 700, color: '#0A6CFF' }}>
+            <a href={authUrl} style={{ fontWeight: 700, color: '#0A6CFF' }}>
               уже есть аккаунт?
             </a>
           </p>

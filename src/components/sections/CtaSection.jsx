@@ -1,6 +1,8 @@
-import { AUTH_URL, SUPPORT_URL } from '@utils/constants';
+import { useTrackedLinks } from '@/hooks/useTrackedLinks';
 
 export default function CtaSection() {
+  const { authUrl, supportUrl } = useTrackedLinks();
+
   return (
     <section
       style={{
@@ -36,10 +38,10 @@ export default function CtaSection() {
           Регистрация за минуту. Аккаунт создаётся автоматически.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a className="cta-white" href={AUTH_URL}>
+          <a className="cta-white" href={authUrl}>
             Попробовать бесплатно
           </a>
-          <a className="cta-ghost" href={SUPPORT_URL} target="_blank" rel="noopener noreferrer">
+          <a className="cta-ghost" href={supportUrl} target="_blank" rel="noopener noreferrer">
             Написать в поддержку
           </a>
         </div>

@@ -1,4 +1,4 @@
-import { AUTH_URL } from '@utils/constants';
+import { useTrackedLinks } from '@/hooks/useTrackedLinks';
 
 function Rub({ children, color = '#5A5A6A' }) {
   return (
@@ -7,6 +7,8 @@ function Rub({ children, color = '#5A5A6A' }) {
 }
 
 export default function PricingSection() {
+  const { authUrl } = useTrackedLinks();
+
   return (
     <section id="pricing" className="section" style={{ background: '#F4F5F9' }}>
       <div style={{ maxWidth: 760, margin: '0 auto' }}>
@@ -40,7 +42,7 @@ export default function PricingSection() {
               <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: -1.5, lineHeight: 1 }}>бесплатно</div>
               <div style={{ fontSize: 12, color: '#9A9AAA', marginTop: 3 }}>за 1 день</div>
             </div>
-            <a className="price-btn" href={AUTH_URL}>
+            <a className="price-btn" href={authUrl}>
               Попробовать
             </a>
           </div>
@@ -56,7 +58,7 @@ export default function PricingSection() {
               </div>
               <div style={{ fontSize: 12, color: '#9A9AAA', marginTop: 3 }}>в месяц</div>
             </div>
-            <a className="price-btn" href={AUTH_URL}>
+            <a className="price-btn" href={authUrl}>
               Выбрать
             </a>
           </div>
@@ -102,7 +104,7 @@ export default function PricingSection() {
                 −17%
               </span>
             </div>
-            <a className="price-btn price-btn--hot" href={AUTH_URL}>
+            <a className="price-btn price-btn--hot" href={authUrl}>
               Выбрать
             </a>
           </div>
@@ -132,7 +134,7 @@ export default function PricingSection() {
                 −33%
               </span>
             </div>
-            <a className="price-btn" href={AUTH_URL}>
+            <a className="price-btn" href={authUrl}>
               Выбрать
             </a>
           </div>

@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
-import { SUPPORT_URL, DOWNLOADS, ROUTES } from '@utils/constants';
+import { useTrackedLinks } from '@/hooks/useTrackedLinks';
+import { DOWNLOADS, ROUTES } from '@utils/constants';
 
 export default function Footer() {
+  const { supportUrl } = useTrackedLinks();
+
   return (
     <footer style={{ background: '#0B0D12', padding: '52px clamp(20px,4vw,56px) 28px' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
@@ -89,7 +92,7 @@ export default function Footer() {
             </h4>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
               <li>
-                <a className="ftr-link" href={SUPPORT_URL} target="_blank" rel="noopener noreferrer">
+                <a className="ftr-link" href={supportUrl} target="_blank" rel="noopener noreferrer">
                   Поддержка
                 </a>
               </li>

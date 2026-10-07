@@ -1,4 +1,4 @@
-import { AUTH_URL } from '@utils/constants';
+import { useTrackedLinks } from '@/hooks/useTrackedLinks';
 
 const NAV = [
   { href: '/#features', label: 'Возможности' },
@@ -8,6 +8,8 @@ const NAV = [
 ];
 
 export default function Header() {
+  const { authUrl } = useTrackedLinks();
+
   return (
     <header className="site-header">
       <a href="/#top" className="brand">
@@ -25,10 +27,10 @@ export default function Header() {
         ))}
       </nav>
       <div className="header-actions">
-        <a className="nav-login" href={AUTH_URL}>
+        <a className="nav-login" href={authUrl}>
           Войти
         </a>
-        <a className="nav-cta" href={AUTH_URL}>
+        <a className="nav-cta" href={authUrl}>
           Попробовать бесплатно
         </a>
       </div>

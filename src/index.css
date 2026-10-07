@@ -169,14 +169,54 @@ button {
 }
 
 @media (max-width: 640px) {
+  .site-header {
+    padding: 0 12px;
+    gap: 6px;
+  }
+  .brand {
+    gap: 8px;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .brand-name {
+    font-size: 16px;
+  }
   .brand-sub {
     display: none;
   }
+  .header-actions {
+    gap: 4px;
+    flex-shrink: 0;
+    margin-right: -2px;
+  }
   .nav-login {
-    padding: 10px 12px;
+    padding: 8px 10px;
+    font-size: 13px;
   }
   .nav-cta {
-    padding: 10px 16px;
+    padding: 9px 11px;
+    font-size: 12px;
+    letter-spacing: -0.25px;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-text {
+    display: none;
+  }
+  .nav-login {
+    padding: 8px 8px;
+    font-size: 12px;
+  }
+  .nav-cta {
+    padding: 8px 10px;
+    font-size: 11px;
   }
 }
 
@@ -561,6 +601,7 @@ button {
   top: 0;
   z-index: 300;
   height: 72px;
+  max-width: 100%;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -569,7 +610,7 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 0 clamp(20px, 4vw, 56px);
+  padding: 0 clamp(12px, 4vw, 56px);
 }
 
 .brand {
