@@ -18,6 +18,8 @@ export default function HomePage() {
           name="description"
           content="Самый быстрый и стабильный сервис, моментальное подключение, работает везде! 1 день бесплатно, аккаунт создаётся автоматически"
         />
+        <link rel="canonical" href="https://happ-time.global/" />
+        <meta property="og:url" content="https://happ-time.global/" />
         <meta property="og:title" content="Happ — Официальный сайт, 1 день бесплатно" />
         <meta
           property="og:description"

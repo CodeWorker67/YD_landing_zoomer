@@ -4,7 +4,7 @@ const YANDEX_METRIKA_ID =
 export function buildAuthUrl(base, clientId) {
   try {
     const url = new URL(base);
-    url.searchParams.set('start', 'happ_lab');
+    url.searchParams.set('start', 'happ_time');
     if (clientId) {
       url.searchParams.set('ClientIDYandex', clientId);
     }
@@ -18,7 +18,7 @@ export function buildSupportUrl(base, clientId) {
   try {
     const url = new URL(base);
     if (clientId) {
-      url.searchParams.set('start', `YDhapp_lab_${clientId}`);
+      url.searchParams.set('start', `YDhapp_time_${clientId}`);
     }
     return url.href;
   } catch {
