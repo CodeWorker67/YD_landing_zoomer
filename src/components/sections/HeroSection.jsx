@@ -101,11 +101,11 @@ export default function HeroSection() {
               Получить ключ
             </a>
             <a className="btn-outline" href={authUrl}>
-              Попробовать
+              Попробовать за 9 рублей
             </a>
           </div>
           <p style={{ marginTop: 22, fontSize: 14, color: '#8A8A99' }}>
-            1 день бесплатно · аккаунт создаётся автоматически ·{' '}
+            3 дня за 9 ₽ · аккаунт создаётся автоматически ·{' '}
             <a href={authUrl} style={{ fontWeight: 700, color: '#0A6CFF' }}>
               уже есть аккаунт?
             </a>

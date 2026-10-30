@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://happ-lab.top/sitemap.xml
+Sitemap: https://happ-time.global/sitemap.xml

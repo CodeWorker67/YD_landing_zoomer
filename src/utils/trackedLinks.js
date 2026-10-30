@@ -1,10 +1,11 @@
-const YANDEX_METRIKA_ID =
-  Number(import.meta.env.VITE_YANDEX_METRIKA_ID) || 113482931;
+import { AUTH_START, SUPPORT_START_PREFIX } from '@utils/constants';
+
+const YANDEX_METRIKA_ID = Number(import.meta.env.VITE_YANDEX_METRIKA_ID);
 
 export function buildAuthUrl(base, clientId) {
   try {
     const url = new URL(base);
-    url.searchParams.set('start', 'happ_time');
+    url.searchParams.set('start', AUTH_START);
     if (clientId) {
       url.searchParams.set('ClientIDYandex', clientId);
     }
@@ -18,7 +19,7 @@ export function buildSupportUrl(base, clientId) {
   try {
     const url = new URL(base);
     if (clientId) {
-      url.searchParams.set('start', `YDhapp_time_${clientId}`);
+      url.searchParams.set('start', `${SUPPORT_START_PREFIX}${clientId}`);
     }
     return url.href;
   } catch {

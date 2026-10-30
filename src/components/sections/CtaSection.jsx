@@ -30,7 +30,7 @@ export default function CtaSection() {
             marginBottom: 14,
           }}
         >
-          Один день бесплатно.
+          Три дня за 9 рублей.
           <br />
           Прямо сейчас.
         </h2>
@@ -39,7 +39,7 @@ export default function CtaSection() {
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a className="cta-white" href={authUrl}>
-            Попробовать бесплатно
+            Попробовать за 9 рублей
           </a>
           <a className="cta-ghost" href={supportUrl} target="_blank" rel="noopener noreferrer">
             Написать в поддержку
