@@ -1,10 +1,19 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import HomePage from '@pages/HomePage';
-import PrivacyPage from '@pages/PrivacyPage';
-import TermsPage from '@pages/TermsPage';
 import { ROUTES } from '@utils/constants';
+
+const HomePage = lazy(() => import('@pages/HomePage'));
+const PrivacyPage = lazy(() => import('@pages/PrivacyPage'));
+const TermsPage = lazy(() => import('@pages/TermsPage'));
+
+function DismissLandingShell() {
+  useEffect(() => {
+    document.getElementById('landing-shell')?.remove();
+    document.getElementById('landing-shell-style')?.remove();
+  }, []);
+  return null;
+}
 
 function ScrollOnRouteChange() {
   const { pathname, hash } = useLocation();
@@ -33,13 +42,16 @@ export default function App() {
   return (
     <HelmetProvider>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <DismissLandingShell />
         <ScrollOnRouteChange />
-        <Routes>
-          <Route path={ROUTES.HOME} element={<HomePage />} />
-          <Route path={ROUTES.PRIVACY} element={<PrivacyPage />} />
-          <Route path={ROUTES.TERMS} element={<TermsPage />} />
-          <Route path="*" element={<HomePage />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path={ROUTES.HOME} element={<HomePage />} />
+            <Route path={ROUTES.PRIVACY} element={<PrivacyPage />} />
+            <Route path={ROUTES.TERMS} element={<TermsPage />} />
+            <Route path="*" element={<HomePage />} />
+          </Routes>
+        </Suspense>
       </Router>
     </HelmetProvider>
   );

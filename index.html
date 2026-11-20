@@ -12,9 +12,63 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://happ-time.global/" />
 
+  <link rel="preconnect" href="https://mc.yandex.ru" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+    />
+  </noscript>
+  <style id="landing-shell-style">
+    #landing-shell {
+      font-family: Manrope, -apple-system, 'Helvetica Neue', sans-serif;
+      color: #0f0f0f;
+      background: #fff;
+      padding: clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px) clamp(48px, 6vw, 72px);
+      max-width: 720px;
+    }
+    #landing-shell h1 {
+      font-size: clamp(32px, 4.4vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      line-height: 1.05;
+      margin: 0 0 16px;
+    }
+    #landing-shell .landing-shell-grad {
+      background: linear-gradient(90deg, #22b8f0, #4a7bff 45%, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    #landing-shell p {
+      font-size: clamp(16px, 1.4vw, 19px);
+      color: #5a5a6a;
+      line-height: 1.55;
+      margin: 0 0 28px;
+      max-width: 460px;
+    }
+    #landing-shell .landing-shell-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 17px 40px;
+      border-radius: 16px;
+      font-size: 17px;
+      font-weight: 800;
+      background: #0a6cff;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 8px 26px rgba(10, 108, 255, 0.32);
+    }
+  </style>
 
   <meta name="description" content="Самый быстрый и стабильный сервис, моментальное подключение, работает везде! 1 день бесплатно, аккаунт создаётся автоматически" />
   <meta property="og:type" content="website" />
@@ -40,7 +94,26 @@
 </head>
 <body>
   <noscript><div><img src="https://mc.yandex.ru/watch/%VITE_YANDEX_METRIKA_ID%" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <div
+    id="landing-shell-config"
+    hidden
+    data-auth-url="%VITE_AUTH_URL%"
+    data-auth-start="%VITE_AUTH_START%"
+    data-yandex-id="%VITE_YANDEX_METRIKA_ID%"
+  ></div>
+  <div id="landing-shell">
+    <section>
+      <h1>
+        Получите Подписку
+        <br />
+        <span class="landing-shell-grad">для Happ</span>
+      </h1>
+      <p>Работает на iOS, Android и Windows. Один аккаунт — до 5 устройств.</p>
+      <a data-landing-cta class="landing-shell-btn" href="#">Получить ключ</a>
+    </section>
+  </div>
   <div id="root"></div>
+  <script src="/landing-bootstrap.js"></script>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

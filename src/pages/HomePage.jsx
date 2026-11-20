@@ -1,13 +1,15 @@
+import { lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@components/navigation/Header';
 import Footer from '@components/navigation/Footer';
 import HeroSection from '@components/sections/HeroSection';
-import Ticker from '@components/sections/Ticker';
-import FeaturesSection from '@components/sections/FeaturesSection';
-import StepsSection from '@components/sections/StepsSection';
-import PricingSection from '@components/sections/PricingSection';
-import FaqSection from '@components/sections/FaqSection';
-import CtaSection from '@components/sections/CtaSection';
+
+const Ticker = lazy(() => import('@components/sections/Ticker'));
+const FeaturesSection = lazy(() => import('@components/sections/FeaturesSection'));
+const StepsSection = lazy(() => import('@components/sections/StepsSection'));
+const PricingSection = lazy(() => import('@components/sections/PricingSection'));
+const FaqSection = lazy(() => import('@components/sections/FaqSection'));
+const CtaSection = lazy(() => import('@components/sections/CtaSection'));
 
 export default function HomePage() {
   return (
@@ -28,12 +30,14 @@ export default function HomePage() {
       </Helmet>
       <Header />
       <HeroSection />
-      <Ticker />
-      <FeaturesSection />
-      <StepsSection />
-      <PricingSection />
-      <FaqSection />
-      <CtaSection />
+      <Suspense fallback={null}>
+        <Ticker />
+        <FeaturesSection />
+        <StepsSection />
+        <PricingSection />
+        <FaqSection />
+        <CtaSection />
+      </Suspense>
       <Footer />
     </div>
   );

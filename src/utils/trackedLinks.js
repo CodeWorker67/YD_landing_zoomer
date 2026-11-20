@@ -1,17 +1,19 @@
 import { AUTH_START, SUPPORT_START_PREFIX } from '@utils/constants';
+import { ensureHttpsBase, mergeLandingQueryIntoUrl } from '@utils/urlParams';
 
 const YANDEX_METRIKA_ID = Number(import.meta.env.VITE_YANDEX_METRIKA_ID);
 
 export function buildAuthUrl(base, clientId) {
   try {
-    const url = new URL(base);
+    const url = new URL(ensureHttpsBase(base));
+    mergeLandingQueryIntoUrl(url);
     url.searchParams.set('start', AUTH_START);
     if (clientId) {
       url.searchParams.set('ClientIDYandex', clientId);
     }
     return url.href;
   } catch {
-    return base;
+    return ensureHttpsBase(base);
   }
 }
 
