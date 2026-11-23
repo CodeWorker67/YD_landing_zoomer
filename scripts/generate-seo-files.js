@@ -1,10 +1,11 @@
 /**
- * Generates public/robots.txt and public/sitemap.xml from DOMEN in .env
+ * Generates public/robots.txt and public/sitemap.xml from DOMEN (or VITE_DOMEN) in .env
  * Run: node scripts/generate-seo-files.js
  */
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { resolveSiteUrl } from './resolve-site-url.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
@@ -34,12 +35,7 @@ function loadDotEnv() {
 
 loadDotEnv();
 
-const siteUrl = (
-  process.env.DOMEN ||
-  process.env.VITE_DOMEN ||
-  process.env.VITE_SITE_URL ||
-  'https://happ-lab.top'
-).replace(/\/$/, '');
+const siteUrl = resolveSiteUrl(process.env);
 
 const staticPaths = ['/', '/privacy', '/terms'];
 const lastmod = new Date().toISOString().slice(0, 10);
