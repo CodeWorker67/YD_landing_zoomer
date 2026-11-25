@@ -3,14 +3,19 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 import { resolveSiteUrl } from './scripts/resolve-site-url.js'
 
-function htmlSiteUrlPlugin(siteUrl) {
+function htmlEnvPlugin(siteUrl, env) {
   const home = `${siteUrl}/`
   return {
     name: 'html-site-url',
     transformIndexHtml(html) {
-      return html
+      let out = html
         .replaceAll('__SITE_URL_HOME__', home)
         .replaceAll('__SITE_URL__', siteUrl)
+      for (const [key, value] of Object.entries(env)) {
+        if (!key.startsWith('VITE_')) continue
+        out = out.replaceAll(`%${key}%`, value ?? '')
+      }
+      return out
     },
   }
 }
@@ -20,7 +25,7 @@ export default defineConfig(({ mode }) => {
   const siteUrl = resolveSiteUrl(env)
 
   return {
-    plugins: [react(), htmlSiteUrlPlugin(siteUrl)],
+    plugins: [react(), htmlEnvPlugin(siteUrl, env)],
     define: {
       __SITE_URL__: JSON.stringify(siteUrl),
     },

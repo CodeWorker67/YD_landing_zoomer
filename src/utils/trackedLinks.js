@@ -1,4 +1,5 @@
 import { AUTH_START, SUPPORT_START_PREFIX } from '@utils/constants';
+import { getOrCreateAdVisitorId } from '@utils/adHit';
 import { ensureHttpsBase, mergeLandingQueryIntoUrl } from '@utils/urlParams';
 
 const YANDEX_METRIKA_ID = Number(import.meta.env.VITE_YANDEX_METRIKA_ID);
@@ -8,6 +9,8 @@ export function buildAuthUrl(base, clientId) {
     const url = new URL(ensureHttpsBase(base));
     mergeLandingQueryIntoUrl(url);
     url.searchParams.set('start', AUTH_START);
+    const vid = getOrCreateAdVisitorId();
+    if (vid) url.searchParams.set('vid', vid);
     if (clientId) {
       url.searchParams.set('ClientIDYandex', clientId);
     }

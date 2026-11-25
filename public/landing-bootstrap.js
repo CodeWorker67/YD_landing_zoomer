@@ -5,6 +5,9 @@
   var authBase = (cfg.dataset.authUrl || '').trim();
   var authStart = cfg.dataset.authStart || '';
   var yandexId = Number(cfg.dataset.yandexId || 0);
+  var adHitApi = (cfg.dataset.adHitApi || '').trim();
+  var VID_KEY = 'landing_ad_vid';
+  var metrikaSent = false;
 
   function toHttpsBase(base) {
     try {
@@ -20,6 +23,67 @@
 
   authBase = toHttpsBase(authBase);
 
+  function getOrCreateVid() {
+    try {
+      var fromUrl = new URLSearchParams(location.search).get('vid');
+      if (fromUrl) {
+        sessionStorage.setItem(VID_KEY, fromUrl);
+        return fromUrl;
+      }
+      var vid = sessionStorage.getItem(VID_KEY);
+      if (!vid) {
+        vid = typeof crypto !== 'undefined' && crypto.randomUUID
+          ? crypto.randomUUID()
+          : String(Date.now()) + '-' + Math.random().toString(16).slice(2);
+        sessionStorage.setItem(VID_KEY, vid);
+      }
+      return vid;
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function pickUtm() {
+    var out = {};
+    var p = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'etext'].forEach(function (k) {
+      var v = p.get(k);
+      if (v) out[k] = v;
+    });
+    if (authStart) out.stamp = authStart;
+    return out;
+  }
+
+  function sendAdHit(event, extra) {
+    var vid = getOrCreateVid();
+    if (!adHitApi || !vid) return;
+    var payload = Object.assign(
+      {
+        event: event,
+        visitor_id: vid,
+        host: location.host,
+        is_mobile: /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent || ''),
+      },
+      pickUtm(),
+      extra || {},
+    );
+    try {
+      var blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(adHitApi, blob);
+        return;
+      }
+    } catch (e) {}
+    fetch(adHitApi, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true,
+      credentials: 'omit',
+      mode: 'cors',
+    }).catch(function () {});
+  }
+
   function buildEarlyAuthUrl(clientId) {
     try {
       var url = new URL(authBase);
@@ -30,6 +94,8 @@
         url.searchParams.set(k, v);
       });
       if (authStart) url.searchParams.set('start', authStart);
+      var vid = getOrCreateVid();
+      if (vid) url.searchParams.set('vid', vid);
       if (clientId) url.searchParams.set('ClientIDYandex', clientId);
       return url.href;
     } catch (e) {
@@ -43,6 +109,14 @@
     });
   }
 
+  function sendMetrikaHit(clientId) {
+    if (metrikaSent) return;
+    metrikaSent = true;
+    var extra = {};
+    if (clientId) extra.yandex_client_id = clientId;
+    sendAdHit('metrika_id', extra);
+  }
+
   var path = location.pathname;
   if (path !== '/' && path !== '') {
     var shell = document.getElementById('landing-shell');
@@ -52,13 +126,21 @@
     return;
   }
 
+  sendAdHit('entry', {});
   applyLinks(buildEarlyAuthUrl(null));
+
+  setTimeout(function () {
+    sendMetrikaHit(null);
+  }, 5500);
 
   function attachClientId() {
     if (!yandexId || typeof ym !== 'function') return;
     try {
       ym(yandexId, 'getClientID', function (id) {
-        if (id) applyLinks(buildEarlyAuthUrl(id));
+        if (id) {
+          applyLinks(buildEarlyAuthUrl(id));
+          sendMetrikaHit(id);
+        }
       });
     } catch (e) {}
   }
