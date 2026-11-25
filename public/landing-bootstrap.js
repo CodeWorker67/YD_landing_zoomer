@@ -68,7 +68,7 @@
       extra || {},
     );
     try {
-      var blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      var blob = new Blob([JSON.stringify(payload)], { type: 'text/plain;charset=UTF-8' });
       if (navigator.sendBeacon) {
         navigator.sendBeacon(adHitApi, blob);
         return;
@@ -76,7 +76,7 @@
     } catch (e) {}
     fetch(adHitApi, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
       body: JSON.stringify(payload),
       keepalive: true,
       credentials: 'omit',

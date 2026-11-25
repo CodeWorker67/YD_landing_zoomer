@@ -68,7 +68,7 @@ export function sendLandingAdHit(event, extra = {}) {
   };
 
   try {
-    const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(body)], { type: 'text/plain;charset=UTF-8' });
     if (navigator.sendBeacon) {
       navigator.sendBeacon(apiUrl, blob);
       return;
@@ -79,7 +79,7 @@ export function sendLandingAdHit(event, extra = {}) {
 
   fetch(apiUrl, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
     body: JSON.stringify(body),
     keepalive: true,
     credentials: 'omit',
