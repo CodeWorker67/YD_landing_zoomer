@@ -105,7 +105,7 @@ export default function HeroSection() {
             </a>
           </div>
           <p style={{ marginTop: 22, fontSize: 14, color: '#8A8A99' }}>
-            1 день бесплатно · аккаунт создаётся автоматически ·{' '}
+            Триальный доступ 7 дней · аккаунт создаётся автоматически ·{' '}
             <a href={authUrl} style={{ fontWeight: 700, color: '#0A6CFF' }}>
               уже есть аккаунт?
             </a>
